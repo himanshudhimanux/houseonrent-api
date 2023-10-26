@@ -3,6 +3,7 @@ const cors = require('cors');
 const connectDB = require("./config/Database");
 require('dotenv').config();
 const UserRoutes = require('./routes/UserRoutes');
+const HouseRoutes = require('./routes/HouseRoutes')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ app.get("/" ,(req,res) => {
 })
 
 app.use("/api/user", UserRoutes);
+app.use("/", HouseRoutes);
 
 
 app.listen(port, () => {
