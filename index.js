@@ -19,7 +19,7 @@ app.get("/" ,(req,res) => {
 })
 
 app.use("/api/user", UserRoutes);
-app.use("/", HouseRoutes);
+app.use("/api", HouseRoutes);
 
 
 app.listen(port, () => {

@@ -4,25 +4,9 @@ const House = require('../Models/HouseModel');
 
 // Get Houses
 const getHouse = asyncHandler(async (req, res) => {
-    try {
-      // You should perform validation to ensure req.user._id is a valid ObjectId.
-      // If not, return an appropriate error response.
-  
-      const houses = await House.find({ user: req.user._id });
-  
-      // Check if houses is an empty array (no houses found).
-      if (houses.length === 0) {
-        // Handle the case where no houses are found for the user.
-        return res.status(404).json({ message: "No houses found for this user." });
-      }
-  
-      res.json(houses);
-    } catch (error) {
-      // Ensure you have proper error handling.
-      // You can log the error for debugging and return an error response to the client.
-      console.error(error);
-      res.status(500).json({ message: "Internal Server Error" });
-    }
+   let data = await House.find();
+   console.log(data);
+   res.send(data);
   });
   
 
@@ -45,7 +29,19 @@ const CreateHouse = asyncHandler(async (req, res) => {
 
 });
 
+// Update House
+const updateHouse = asyncHandler( async(req,res) =>{
+    let data = await House.updateOne(
+      req.params, { $set: req.body }
+    );
+    res.send(data);
+})
+
+// Delete House
+const deleteHouse = asyncHandler( async (req , res) => {
+    let data = await House.deleteOne(req.params);
+    res.send(data);
+})
 
 
-
-module.exports={CreateHouse, getHouse};
+module.exports={CreateHouse, getHouse, updateHouse, deleteHouse};
