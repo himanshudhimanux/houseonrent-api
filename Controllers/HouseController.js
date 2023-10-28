@@ -4,11 +4,21 @@ const House = require('../Models/HouseModel');
 
 // Get Houses
 const getHouse = asyncHandler(async (req, res) => {
-   let data = await House.find();
-   console.log(data);
-   res.send(data);
+    try {
+        const data = await House.find();
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          res.status(404).json({ message: 'No houses found' });
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
   });
   
+
+
 
 // Create House Function
 const CreateHouse = asyncHandler(async (req, res) => {
@@ -30,17 +40,36 @@ const CreateHouse = asyncHandler(async (req, res) => {
 });
 
 // Update House
-const updateHouse = asyncHandler( async(req,res) =>{
-    let data = await House.updateOne(
-      req.params, { $set: req.body }
-    );
-    res.send(data);
-})
+const updateHouse = asyncHandler(async (req, res) => {
+    try {
+      const result = await House.updateOne( req.params , { $set: req.body });
+      
+      if (result.nModified > 0) {
+        res.status(200).json({ message: 'House updated successfully' });
+      } else {
+        res.status(404).json({ message: 'House not found or no changes made' });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 // Delete House
 const deleteHouse = asyncHandler( async (req , res) => {
-    let data = await House.deleteOne(req.params);
-    res.send(data);
+
+    try {
+        const result = await House.deleteOne(req.params);
+        
+        if (result.deletedCount > 0) {
+          res.status(200).json({ message: 'House deleted successfully' });
+        } else {
+          res.status(404).json({ message: 'House not found or no deletion occurred' });
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+
 })
 
 
