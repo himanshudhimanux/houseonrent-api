@@ -10,6 +10,11 @@ const houseSchema = new mongoose.Schema({
     enum: [1, 2, 3, 4, 5], // Ensure it's one of these values
     required: true,
   },
+  floor: {
+    type: Number,
+    enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], // Ensure it's one of these values
+    required: true,
+  },
   location: {
     type: String,
     required: true,
@@ -17,6 +22,9 @@ const houseSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  description: {
+    type: String,
   },
   houseimg:{
     type: String,

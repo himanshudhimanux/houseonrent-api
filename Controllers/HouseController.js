@@ -23,15 +23,15 @@ const getHouse = asyncHandler(async (req, res) => {
 // Create House Function
 const CreateHouse = asyncHandler(async (req, res) => {
 
-    const {squareFeet, bhk, location, price, houseimg } = req.body;
+    const {squareFeet, bhk, location, price, floor , description ,houseimg } = req.body;
 
-    if (!squareFeet || !bhk || !location || !price || !houseimg) {
+    if (!squareFeet || !bhk || !location || !price || !floor || !description || !houseimg) {
         res.status(400);
         throw new Error("Please Fill all the Fields");
     } else {
         
         const house = new House({
-            user: req.user._id, squareFeet, bhk, location, price, houseimg
+            user: req.user._id, squareFeet, bhk, location, price, floor, description, houseimg
         });
         const CreateHouse = await house.save();
         res.status(201).json(CreateHouse);
