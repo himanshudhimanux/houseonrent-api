@@ -42,17 +42,20 @@ const CreateHouse = asyncHandler(async (req, res) => {
 // Update House
 const updateHouse = asyncHandler(async (req, res) => {
     try {
-      const result = await House.updateOne( req.params , { $set: req.body });
-      
-      if (result.nModified > 0) {
+      const result = await House.updateOne(req.params, { $set: req.body });
+  
+      if (result.acknowledged) {
         res.status(200).json({ message: 'House updated successfully' });
       } else {
         res.status(404).json({ message: 'House not found or no changes made' });
       }
     } catch (err) {
+      console.error('Error:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+  
+  
 
 // Delete House
 const deleteHouse = asyncHandler( async (req , res) => {
