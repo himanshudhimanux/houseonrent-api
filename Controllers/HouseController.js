@@ -21,7 +21,7 @@ const getHouse = asyncHandler(async (req, res) => {
 
 
 // Create House Function
-const CreateHouse = asyncHandler(async (req, res) => {
+const createHouse = asyncHandler(async (req, res) => {
 
     const {squareFeet, bhk, location, price, floor , description ,houseimg } = req.body;
 
@@ -33,8 +33,8 @@ const CreateHouse = asyncHandler(async (req, res) => {
         const house = new House({
             user: req.user._id, squareFeet, bhk, location, price, floor, description, houseimg
         });
-        const CreateHouse = await house.save();
-        res.status(201).json(CreateHouse);
+        const createHouse = await house.save();
+        res.status(201).json(createHouse);
     }
 
 });
@@ -76,4 +76,4 @@ const deleteHouse = asyncHandler( async (req , res) => {
 })
 
 
-module.exports={CreateHouse, getHouse, updateHouse, deleteHouse};
+module.exports={createHouse, getHouse, updateHouse, deleteHouse};
